@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Basics 101: Smart Money for Beginners</title>
+  <style>
+    :root {
+      --bg: #f3f5f7;
+      --panel: #ffffff;
+      --primary: #112d4e;
+      --secondary: #1c3f75;
+      --accent: #dfeaf7;
+      --text: #243447;
+      --muted: #5c6b7a;
+      --border: #dfe4ea;
+      --warning-bg: #fff4e5;
+      --warning-border: #f0a14a;
+      --shadow: 0 8px 22px rgba(17, 45, 78, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(17, 45, 78, 0.04);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 78px;
+    }
+
+    .site-title {
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.03em;
+    }
+
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .main-nav a {
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--primary);
+      font-weight: 600;
+      transition: 0.2s ease-in-out;
+    }
+
+    .main-nav a:hover {
+      background: #eef4ff;
+    }
+
+    .page-layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 2rem;
+      padding: 2rem 0 3rem;
+    }
+
+    .sidebar {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.25rem;
+      height: fit-content;
+      position: sticky;
+      top: 110px;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar h3 {
+      margin: 0 0 1rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .sidebar-nav {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 0.8rem 0.9rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--secondary);
+      background: #f8fafc;
+      border: 1px solid transparent;
+    }
+
+    .sidebar-nav a:hover {
+      border-color: var(--border);
+      background: #eef5ff;
+    }
+
+    .content {
+      display: grid;
+      gap: 2rem;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 3vw, 3rem);
+      margin-bottom: 0.85rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 2vw, 2.2rem);
+      margin-bottom: 0.85rem;
+    }
+
+    p {
+      margin-top: 0;
+      color: var(--text);
+      font-size: 1.03rem;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .callout {
+      background: linear-gradient(180deg, #eef5ff, #f9fbff);
+      border: 1px solid #d9e8ff;
+      border-left: 5px solid var(--secondary);
+      border-radius: 16px;
+      padding: 1.25rem 1.4rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      box-shadow: 0 4px 16px rgba(17, 45, 78, 0.03);
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .warning-box {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-left: 6px solid var(--warning-border);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+      margin-top: 1.25rem;
+    }
+
+    .warning-box h3 {
+      margin-bottom: 0.6rem;
+      color: #8b4d00;
+    }
+
+    .warning-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .warning-list li {
+      position: relative;
+      padding-left: 1.3rem;
+      color: var(--text);
+    }
+
+    .warning-list li::before {
+      content: "⚠";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #d97706;
+      font-weight: bold;
+    }
+
+    .glossary-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .glossary-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .glossary-item strong {
+      display: block;
+      color: var(--secondary);
+      margin-bottom: 0.35rem;
+    }
+
+    footer {
+      padding: 1.5rem 0 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .hero-grid,
+      .feature-grid,
+      .glossary-list,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 1rem 0;
+      }
+
+      .main-nav {
+        width: 100%;
+      }
+
+      .main-nav a {
+        flex: 1 1 calc(50% - 0.75rem);
+        text-align: center;
+      }
+
+      section {
+        padding: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="site-title">Stock Basics 101: Smart Money for Beginners</div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#stock-basics">Stock Basics</a>
+        <a href="#scam-alert">Scam Alert!</a>
+        <a href="#glossary">Glossary</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container page-layout">
+    <aside class="sidebar" aria-label="Sidebar navigation">
+      <h3>Quick Menu</h3>
+      <nav class="sidebar-nav">
+        <a href="#home">Home</a>
+        <a href="#stock-basics">Stock Basics (Supply & Demand)</a>
+        <a href="#scam-alert">Scam Alert!</a>
+        <a href="#glossary">Glossary</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section id="home">
+        <div class="hero-grid">
+          <div>
+            <h1>Why Financial Literacy Matters</h1>
+            <p class="lead">
+              For young adults aged 16–23, learning how money works can shape smarter decisions
+              today and stronger opportunities tomorrow. Whether you're saving, earning, or
+              just curious about investing, understanding financial basics is a powerful first step.
+            </p>
+            <div class="stats">
+              <div class="stat-card">
+                <strong>1</strong>
+                <span>Smart habit</span>
+              </div>
+              <div class="stat-card">
+                <strong>3</strong>
+                <span>Key money skills</span>
+              </div>
+              <div class="stat-card">
+                <strong>100%</strong>
+                <span>Worth learning</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <h3>Start with the basics</h3>
+            <p>
+              Financial literacy helps you understand how saving, investing, debt, and risk all work.
+              It gives you confidence to make better choices instead of reacting to hype or pressure.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="stock-basics">
+        <h2>Stock Basics: Supply & Demand</h2>
+        <p class="lead">
+          A stock is a share of ownership in a company. Prices move based on how many people want to buy
+          versus sell the stock — this is the basic idea behind supply and demand.
+        </p>
+
+        <div class="feature-grid">
+          <article class="card">
+            <h3>What is a stock?</h3>
+            <p>
+              Buying a stock means owning a small part of a company. If the company grows and performs well,
+              the stock may become more valuable over time.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>How markets work</h3>
+            <p>
+              Stocks are bought and sold on exchanges where investors trade shares based on price, news,
+              expectations, and company performance.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Supply & Demand</h3>
+            <p>
+              When more people want to buy a stock than sell it, demand rises and price often goes up.
+              When more people want to sell than buy, price often falls.
+            </p>
+          </article>
+        </div>
+
+        <div class="warning-box">
+          <h3>Simple rule to remember</h3>
+          <p>
+            Price changes are often driven by investor behavior. Hearing a company has strong potential
+            can increase demand, while fear or bad news can create selling pressure.
+          </p>
+        </div>
+      </section>
+
+      <section id="scam-alert">
+        <h2>Scam Alert!</h2>
+        <p class="lead">
+          Not every “hot stock tip” is a real opportunity. Some investment scams promise fast money with
+          little risk, but they often rely on pressure, confusion, or false promises.
+        </p>
+
+        <div class="feature-grid">
+          <article class="card">
+            <h3>1. Pump-and-Dump Schemes</h3>
+            <p>
+              Someone promotes a stock widely to inflate its price, then sells their shares before the hype fades.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>2. Guaranteed Return Claims</h3>
+            <p>
+              If a person promises quick profits with no risk, that's a major red flag. Real investing carries risk.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>3. Fake Investment Groups</h3>
+            <p>
+              Social media groups may pressure people to buy a “secret” stock or pay upfront fees for “exclusive access.”
+            </p>
+          </article>
+        </div>
+
+        <div class="warning-box">
+          <h3>Red flags to watch out for</h3>
+          <ul class="warning-list">
+            <li>Guaranteed high returns with no explanation</li>
+            <li>Urgent messages pushing immediate action</li>
+            <li>Fake reviews or viral social media hype</li>
+            <li>Unlicensed sellers or unverifiable claims</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="glossary">
+        <h2>Glossary</h2>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <strong>Stock</strong>
+            A share of ownership in a company.
+          </div>
+          <div class="glossary-item">
+            <strong>Dividend</strong>
+            A payment some companies make to shareholders from profits.
+          </div>
+          <div class="glossary-item">
+            <strong>Market</strong>
+            The place where buyers and sellers trade financial assets.
+          </div>
+          <div class="glossary-item">
+            <strong>Risk</strong>
+            The chance that an investment may lose value.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © 2026 Stock Basics 101 • Smart money starts with knowledge.
+  </footer>
+</body>
+</html>
